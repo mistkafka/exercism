@@ -6,18 +6,17 @@ class SpaceAge {
     }
 
     registerPlaentAgeFn() {
-        Object.keys(SpaceAge.Scale2EarthMapping)
-            .forEach(planetName => {
-                let fnName = 'on' + planetName;
-                this[fnName] = () => {
-                    let earthAge = this.earthAge;
-                    let scale = SpaceAge.Scale2EarthMapping[planetName];
-                    let planetAge = earthAge / scale;
-                    planetAge = Number.parseFloat(planetAge.toFixed(2, 10));
+        for (let [planetName, scale] of Object.entries(SpaceAge.Scale2EarthMapping)) {
+            let fnName = 'on' + planetName;
+            this[fnName] = () => {
+                let earthAge = this.earthAge;
+                let scale = SpaceAge.Scale2EarthMapping[planetName];
+                let planetAge = earthAge / scale;
+                planetAge = Number.parseFloat(planetAge.toFixed(2, 10));
 
-                    return planetAge;
-                };
-            });
+                return planetAge;
+            };
+        }
     }
 
     get earthAge() {
